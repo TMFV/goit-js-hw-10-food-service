@@ -8,44 +8,46 @@ const Theme = {
     DARK: 'dark-theme',
   };
   const dark = Theme.DARK;
-  const light = Theme.LIGHT
+  const light = Theme.LIGHT;
 
   const localRef = localStorage.getItem('theme');
   let localStatus;
- 
+ function onRef (localStatus){localStorage.setItem('theme', localStatus)};
+ function changeOnDark(){
+    body.classList.add(`${dark}`);
+    body.classList.remove(`${light}`);
+ };
+ function changeOnLight(){
+    body.classList.add(`${light}`);
+    body.classList.remove(`${dark}`);
+ };
 
   if (localRef === null){
       localStatus = light;
-      localStorage.setItem('theme', localStatus);
+      onRef (localStatus);
   } else if (localRef == light){ 
     localStatus = light;
-    localStorage.setItem('theme', localStatus);
-      body.classList.add(`${light}`);
-      body.classList.remove(`${dark}`);
+    onRef (localStatus);
+    changeOnLight();
   } else if (localRef == dark){ 
     themeCheckboxRef.setAttribute('checked', true);
     localStatus = dark;
-    localStorage.setItem('theme', localStatus);
-    body.classList.add(`${dark}`);
-    body.classList.remove(`${light}`);
+    onRef (localStatus);
+    changeOnDark();
 };
-
 
 themeCheckboxRef.addEventListener('click', function change (event) {
     
     if(localStatus == light){
-        console.dir(event.target);
         themeCheckboxRef.setAttribute('checked', true)
         localStatus = dark;
-        localStorage.setItem('theme', localStatus);
-        body.classList.add(`${dark}`);
-        body.classList.remove(`${light}`);
+        onRef (localStatus);
+        changeOnDark();
     } else if(localStatus == dark){
         themeCheckboxRef.setAttribute('checked', false)
         localStatus = light;
-        localStorage.setItem('theme', localStatus);
-        body.classList.add(`${light}`);
-        body.classList.remove(`${dark}`);
+        onRef (localStatus);
+        changeOnLight();
     }
 });
 

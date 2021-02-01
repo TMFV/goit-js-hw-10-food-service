@@ -1,8 +1,9 @@
-
+import templ from "../temp.hbs";
 import dishes from '../menu.json';
 
-const refs = {
-    renerList: document.querySelector('.js-menu'),
-    
 
-};
+const renderList = document.querySelector('.js-menu');
+const rend = templ(dishes);
+
+
+renderList.insertAdjacentHTML('beforeend', rend);
